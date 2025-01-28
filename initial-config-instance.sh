@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Prompt for vCluster version
-read -p "Enter the vCluster version to install (default: 4.1.1): " INPUT_VCLUSTER_PLATFORM_VERSION
-VCLUSTER_PLATFORM_VERSION=${INPUT_VCLUSTER_PLATFORM_VERSION:-4.1.1}
 
 # Installing k3s
 echo "Installing k3s..."
