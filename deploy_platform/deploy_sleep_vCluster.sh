@@ -25,6 +25,24 @@ curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stabl
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 kubectl version --client
 
+# Add aliases and environment variables to ~/.zshrc
+echo "Updating ~/.zshrc with aliases and PATH..."
+{
+    echo ""
+    echo "# Custom aliases for vCluster and kubectl"
+    echo "alias k='kubectl'"
+    echo "alias vd='vcluster delete'"
+    echo "alias vv='vcluster --version'"
+    echo "alias vc='vcluster create'"
+    echo "alias vl='vcluster list'"
+    echo "alias vdis='vcluster disconnect'"
+    echo "alias vps='vcluster platform start'"
+} >> ~/.zshrc
+
+# Source the updated ~/.zshrc
+echo "Sourcing ~/.zshrc..."
+source ~/.zshrc
+
 echo "Installing vCluster CLI..."
 curl -L -o vcluster "https://github.com/loft-sh/vcluster/releases/latest/download/vcluster-linux-amd64" && sudo install -c -m 0755 vcluster /usr/local/bin && rm -f vcluster
 
