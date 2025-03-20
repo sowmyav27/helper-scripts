@@ -5,7 +5,7 @@ set -e
 CONFIG_FILE="vcluster-config.yaml"
 
 read -p "Enter the vCluster version to install (default: 4.2.2): " INPUT_VCLUSTER_PLATFORM_VERSION
-VCLUSTER_PLATFORM_VERSION=${INPUT_VCLUSTER_PLATFORM_VERSION:-4.1.1}
+VCLUSTER_PLATFORM_VERSION=${INPUT_VCLUSTER_PLATFORM_VERSION:-4.2.2}
 
 echo "Installing k3s..."
 curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.31.2+k3s1 sh -
