@@ -115,7 +115,7 @@ EOF
 vcluster create vcluster -n vcluster -f values.yaml --distro=k8s
 
 # Run Sonobuoy with certified conformance mode
-sonobuoy run --mode=certified-conformance
+sonobuoy run --mode=certified-conformance --dns-pod-labels=k8s-app=vcluster-kube-dns
 
 # Periodically check Sonobuoy status
 echo "Checking Sonobuoy status every 10 minutes..."
