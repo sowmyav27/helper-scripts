@@ -1,7 +1,17 @@
 #!/bin/bash
 
-K8S_VERSION=$1  
-NODES_COUNT=$2
+if [ -z "$1" ]; then
+  read -p "Enter k8sversion. Ex: 1.32.1: " K8S_VERSION
+else
+  K8S_VERSION="$1"
+fi
+
+if [ -z "$2" ]; then
+  read -p "Enter Cluster node count: " NODES_COUNT
+else
+  NODES_COUNT="$2"
+fi
+
 
 
 if ! command -v kubectl &> /dev/null; then
