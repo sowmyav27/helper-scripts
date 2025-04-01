@@ -47,6 +47,7 @@ helm upgrade loft loft --install \
   --version $PLATFORM_VERSION \
   --namespace loft \
   --create-namespace \
+  --kubeconfig $KUBECONFIG \
   --set agentOnly=true \
   --set url=https://$PLATFORM_HOST \
   --set token=$(echo $CLUSTER_ACCESS_KEY | jq -r .accessKey) \
