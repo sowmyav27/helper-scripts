@@ -79,18 +79,12 @@ controlPlane:
             tag: 3.5.17-0
   distro:
     k8s:
+      image:
+        tag: v1.32.1
       apiServer:
         extraArgs:
           - --service-account-jwks-uri=https://kubernetes.default.svc.cluster.local/openid/v1/jwks
-        image:
-          tag: v1.32.1
-      controllerManager:
-        image:
-          tag: v1.32.1
       enabled: true
-      scheduler:
-        image:
-          tag: v1.32.1
   statefulSet:
     scheduling:
       podManagementPolicy: OrderedReady
