@@ -1,0 +1,12 @@
+sync:
+  fromHost:
+    ingressClasses:
+      enabled: false
+  toHost:
+    ingresses:
+      enabled: false
+external:
+  platform:
+    apiKey:
+      secretName: vcluster-platform-api-key
+      namespace: ${NAMESPACE}
