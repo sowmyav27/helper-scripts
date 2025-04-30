@@ -62,7 +62,7 @@ fi
 # Start Minikube with specified Kubernetes version and node count
 minikube start --kubernetes-version $K8S_VERSION --nodes=$NODES_COUNT --force
 
-curl -L -o vcluster "https://github.com/loft-sh/vcluster/releases/latest/download/vcluster-linux-amd64" && sudo install -c -m 0755 vcluster /usr/local/bin && rm -f vcluster
+curl -L -o vcluster "https://github.com/loft-sh/vcluster/releases/download/v0.25.0-rc.1/vcluster-linux-amd64" && sudo install -c -m 0755 vcluster /usr/local/bin && rm -f vcluster
 
 # Create a values.yaml file for vCluster
 cat <<EOF > values.yaml
