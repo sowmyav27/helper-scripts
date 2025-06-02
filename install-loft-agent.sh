@@ -31,6 +31,7 @@ metadata:
 spec:
   displayName: $CLUSTER_NAME
   networkPeer: true
+  managementNamespace: vcluster-platform
 EOF
 
 export PLATFORM_VERSION=$(curl -s "https://$PLATFORM_HOST/version" | jq -r '.version | .[0:]')
@@ -56,7 +57,7 @@ helm upgrade loft loft --install \
 
 
 
-echo "Patch cluster with cluster.spec.managementNamespace: vcluster-platform"
-kubectl patch cluster $CLUSTER_NAME --type=merge -p '{"spec":{"managementNamespace":"vcluster-platform"}}'
+#echo "Patch cluster with cluster.spec.managementNamespace: vcluster-platform"
+#kubectl patch cluster $CLUSTER_NAME --type=merge -p '{"spec":{"managementNamespace":"vcluster-platform"}}'
 
 echo "vCluster Loft agent installation completed successfully."
