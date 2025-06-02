@@ -21,6 +21,10 @@ curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stabl
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 kubectl version --client
 
+# install k9s
+wget https://github.com/derailed/k9s/releases/download/v0.32.5/k9s_linux_amd64.deb
+sudo apt install ./k9s_linux_amd64.deb
+
 # Add aliases and environment variables to ~/.zshrc
 echo "Updating ~/.zshrc with aliases and PATH..."
 {
