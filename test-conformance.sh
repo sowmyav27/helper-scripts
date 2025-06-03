@@ -60,8 +60,11 @@ fi
 # Install Sonobuoy (if not already installed)
 if ! command -v sonobuoy &> /dev/null; then
     echo "Installing Sonobuoy..."
-    curl -LO https://github.com/vmware-tanzu/sonobuoy/releases/download/v0.57.3/sonobuoy_0.57.3_linux_amd64.tar.gz
-    tar -xzf sonobuoy_0.57.3_linux_amd64.tar.gz
+    SONOBUOY_VERSION=$(curl -s https://api.github.com/repos/vmware-tanzu/sonobuoy/releases/latest | grep tag_name | cut -d '"' -f 4)
+    curl -L "https://github.com/vmware-tanzu/sonobuoy/releases/download/${SONOBUOY_VERSION}/sonobuoy_${SONOBUOY_VERSION#v}_linux_amd64.tar.gz" -o sonobuoy.tar.gz
+    tar -xzf sonobuoy.tar.gz
+    sudo mv sonobuoy /usr/local/bin/
+    sonobuoy version
 fi
 
 # Start Minikube with specified Kubernetes version and node count
