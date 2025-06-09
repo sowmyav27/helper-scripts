@@ -5,8 +5,14 @@ sync:
   toHost:
     ingresses:
       enabled: false
+controlPlane:
+  backingStore:
+    etcd:
+      embedded:
+        enabled: true
 external:
   platform:
     apiKey:
       secretName: vcluster-platform-api-key
-      namespace: ${namespace}
+      namespace: "${NAMESPACE}"
+      createRBAC: true
