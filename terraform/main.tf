@@ -9,6 +9,21 @@ variable "platform_hostname" {
   type        = string
 }
 
+variable "vcluster_namespace" {
+  description = "vCluster ns"
+  type        = string
+}
+
+variable "vcluster_name" {
+  description = "vCluster name"
+  type        = string
+}
+
+variable "vcluster_version" {
+  description = "vCluster name"
+  type        = string
+}
+
 provider "helm" {
   kubernetes {
     config_path = "~/.kube/config"
@@ -19,24 +34,16 @@ provider "kubernetes" {
   config_path = "~/.kube/config"
 }
 
-resource "random_id" "vcluster" {
-  byte_length = 4
-}
-
-locals {
-  vcluster_name = "terraform-vcluster-${random_id.vcluster.hex}"
-}
-
 resource "kubernetes_namespace" "vcluster_ns" {
   metadata {
-    name = local.vcluster_name
+    name = var.vcluster_namespace
   }
 }
 
 resource "kubernetes_secret" "vcluster_platform_api_key" {
   metadata {
     name      = "vcluster-platform-api-key"
-    namespace = kubernetes_namespace.vcluster_ns.metadata[0].name
+    namespace = var.vcluster_namespace
     labels = {
       "vcluster.loft.sh/created-by-cli" = "true"
     }
@@ -45,24 +52,23 @@ resource "kubernetes_secret" "vcluster_platform_api_key" {
     accessKey = var.platform_access_key
     host      = var.platform_hostname
     insecure  = "true"
-    name      = local.vcluster_name
+    name      = var.vcluster_name
     project   = "default"
   }
   type = "Opaque"
+  depends_on = [kubernetes_namespace.vcluster_ns]
 }
 
 resource "helm_release" "my_vcluster" {
-  name       = local.vcluster_name
-  namespace  = kubernetes_namespace.vcluster_ns.metadata[0].name
+  name       = var.vcluster_name
+  namespace  = var.vcluster_namespace
   repository = "https://charts.loft.sh"
   chart      = "vcluster"
-  version    = "0.25.0-beta.2"
+  version    = var.vcluster_version
   values = [
-    file("vcluster.yaml")
-  ]
+  templatefile("vcluster.yaml", {
+    NAMESPACE = var.vcluster_namespace
+  })
+]
   depends_on = [kubernetes_secret.vcluster_platform_api_key]
-}
-
-output "vcluster_name" {
-  value = local.vcluster_name
 }
