@@ -44,13 +44,13 @@ echo "Sourcing ~/.zshrc..."
 source ~/.zshrc
 
 echo "Installing vCluster CLI..."
-curl -L -o vcluster "https://github.com/loft-sh/vcluster/releases/v$VCLUSTER_VERSION/download/vcluster-linux-amd64" && sudo install -c -m 0755 vcluster /usr/local/bin && rm -f vcluster
+curl -L -o vcluster "https://github.com/loft-sh/vcluster/releases/download/v$VCLUSTER_VERSION/vcluster-linux-amd64" && sudo install -c -m 0755 vcluster /usr/local/bin && rm -f vcluster
 
 echo "Starting vCluster platform..."
 vcluster platform start --version=$VCLUSTER_PLATFORM_VERSION
 
 VCLUSTER_NAME="vcluster-$(head /dev/urandom | tr -dc a-z0-9 | head -c 6)"
 echo "Deploying vCluster: $VCLUSTER_NAME..."
-vcluster platform create vcluster $VCLUSTER_NAME --version=$VCLUSTER_VERSION
+vcluster platform create vcluster $VCLUSTER_NAME --chart-version=$VCLUSTER_VERSION
 echo "vCluster $VCLUSTER_NAME deployed successfully."
 vcluster disconnect
